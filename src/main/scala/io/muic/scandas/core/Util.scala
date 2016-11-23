@@ -1,9 +1,14 @@
 package io.muic.scandas.core
 
-class Util {
+import scala.math
 
-  def tablePrint(ar: Array[Array[Any]]): String = {
-    "HOHO"
+
+object Util {
+
+  def checkDim(ar1: Seq[Any], ar2: Seq[Any]) ={
+    import ScException.DiffDimException
+    if (ar1.size != ar2.size) throw new DiffDimException
   }
+
 
 }

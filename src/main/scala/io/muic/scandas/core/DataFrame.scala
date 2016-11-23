@@ -4,3 +4,4 @@ class DataFrame(data: Map[String, Array[Double]])  {
   override def toString() = ???
 
 }
+

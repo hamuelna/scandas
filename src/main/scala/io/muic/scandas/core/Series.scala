@@ -1,25 +1,37 @@
 package io.muic.scandas.core
 
-class Series(data: Array[Double], index: Option[Array[Int]]= None){
-  val g_data = data
-  val i_data = index
+class Series[T](data: Seq[T])(implicit num: Numeric[T]) {
+  val gData = data.toVector
+  def abs: Series[T] = new Series[T](gData.map(x => {
+    val ops = num.mkNumericOps(x)
+    ops.abs()
+  }))
 
-  def abs(): Series = ???
-  def +(that: Series): Series = ???
-  def -(that: Series): Series = ???
-  def *(that: Series): Series = ???
-  def /(that: Series): Series = ???
-  //comparing element wise i.e. List(True, False, True)
-  def comparable(that: Series): Series = ???
-  //append series to this series
-  def append(that: Series) = ???
+  import io.muic.scandas.core.Util._
 
-  def first() = ???
-  def last() = ???
-  def count() = ??? //count non-NA fields
+  def +(that: Series[T]): Series[T] = {
+    checkDim(gData, that.toVector)
+    val res = (0 until gData.size).map(i => {
+      val aops = num.mkNumericOps(gData(i))
+      aops + that.toVector(i)
+    })
+    new Series(res)
+  }
 
+  def -(that: Series[T]): Series[T] = {
+    checkDim(gData, that.toVector)
+    val res = (0 until gData.size).map(i => {
+      val aops = num.mkNumericOps(gData(i))
+      aops + that.toVector(i)
+    })
+    new Series(res)
+  }
 
-  //print the series in a beautiful way
-  override def toString: String = ???
+  def *(that: Series[T]): Series[T] = ???
+
+  def /(that: Series[T]): Series[T] = ???
+  
+  def toVector = gData
+
 
 }

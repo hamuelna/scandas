@@ -1,13 +1,13 @@
 package io.muic.scandas.core
 
-class Stats {
-  def mean(data: Series) = ???
-  def min(data: Series) = ???
-  def max(data: Series) = ???
-  def variance(data: Series) = ???
-  def covariance(data: Series) = ???
-  def std(data: Series) = ???
-
-  def describe(data: DataFrame) = ???
+trait Stats {
+  def mean[T](data: Series[T]) = ???
+  def min[T](data: Series[T]) = ???
+  def max[T](data: Series[T]) = ???
+//  def variance(data: Series) = ???
+//  def covariance(data: Series) = ???
+//  def std(data: Series) = ???
+//
+//  def describe(data: DataFrame) = ???
 
 }

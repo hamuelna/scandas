@@ -1,5 +1,4 @@
-package Core
-
+package io.muic.scandas.core
 
 class Stats {
   def mean(data: Series) = ???

@@ -1,19 +1,17 @@
-package Core
-class Series(data: Array, index: Array){
+package io.muic.scandas.core
 
-  def this(data: Array) = {
-    //create a default index for the data
-    this
-  }
+class Series(data: Array[Double], index: Option[Array[Int]]= None){
+  val g_data = data
+  val i_data = index
 
-
-  def abs()
+  def abs(): Series = ???
   def +(that: Series): Series = ???
   def -(that: Series): Series = ???
   def *(that: Series): Series = ???
   def /(that: Series): Series = ???
+  //comparing element wise i.e. List(True, False, True)
   def comparable(that: Series): Series = ???
-
+  //append series to this series
   def append(that: Series) = ???
 
   def first() = ???
@@ -22,6 +20,6 @@ class Series(data: Array, index: Array){
 
 
   //print the series in a beautiful way
-  override def toString = ???
+  override def toString: String = ???
 
 }

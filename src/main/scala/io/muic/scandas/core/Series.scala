@@ -75,6 +75,7 @@ class Series[T](data: Seq[T])(implicit num: Numeric[T]) {
   }
 
   def toVector = gData
+  def toArray = gData.toArray
   def size = gData.size
 
 }

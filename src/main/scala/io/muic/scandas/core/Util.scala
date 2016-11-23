@@ -5,6 +5,8 @@ import scala.reflect.{ClassTag, classTag}
 
 object Util {
 
+
+
   def checkDim(ar1: Seq[_], ar2: Seq[_]) ={
     import ScException.DiffDimException
     if (ar1.size != ar2.size) throw new DiffDimException

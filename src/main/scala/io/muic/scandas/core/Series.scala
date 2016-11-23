@@ -15,7 +15,7 @@ class Series[+T](data: Seq[T])(implicit num: Numeric[T]) {
   import io.muic.scandas.core.Util._
 
 
-  def +[A >: T](that: Series[A])(implicit thatNum: Numeric[A]) ={
+  def +[A](that: Series[A])(implicit thatNum: Numeric[A]) ={
     try {
       checkDim(gData, that.toVector)
       if (pairMatch(gData, that.toVector)){
@@ -43,7 +43,7 @@ class Series[+T](data: Seq[T])(implicit num: Numeric[T]) {
 
   }
 
-  def -[A >: T](that: Series[A])(implicit thatNum: Numeric[A]) ={
+  def -[A](that: Series[A])(implicit thatNum: Numeric[A]) ={
     try {
       checkDim(gData, that.toVector)
       if (pairMatch(gData, that.toVector)) {
@@ -70,7 +70,7 @@ class Series[+T](data: Seq[T])(implicit num: Numeric[T]) {
     }
   }
 
-  def *[A >: T](that: Series[A])(implicit thatNum: Numeric[A]) ={
+  def *[A](that: Series[A])(implicit thatNum: Numeric[A]) ={
     try {
       checkDim(gData, that.toVector)
       if (pairMatch(gData, that.toVector)) {
@@ -97,7 +97,7 @@ class Series[+T](data: Seq[T])(implicit num: Numeric[T]) {
     }
   }
 
-  def /[A >: T](that: Series[A])(implicit thatNum: Numeric[A]) : Series[Double] = {
+  def /[A](that: Series[A])(implicit thatNum: Numeric[A]) : Series[Double] = {
     try{
       checkDim(gData, that.toVector)
       val res = gData.indices.map(i => {

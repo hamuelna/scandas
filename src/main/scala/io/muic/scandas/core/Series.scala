@@ -22,15 +22,30 @@ class Series[T](data: Seq[T])(implicit num: Numeric[T]) {
     checkDim(gData, that.toVector)
     val res = (0 until gData.size).map(i => {
       val aops = num.mkNumericOps(gData(i))
-      aops + that.toVector(i)
+      aops - that.toVector(i)
     })
     new Series(res)
   }
 
-  def *(that: Series[T]): Series[T] = ???
+  def *(that: Series[T]): Series[T] = {
+    checkDim(gData, that.toVector)
+    val res = (0 until gData.size).map(i => {
+      val aops = num.mkNumericOps(gData(i))
+      aops * that.toVector(i)
+    })
+    new Series(res)
+  }
 
-  def /(that: Series[T]): Series[T] = ???
-  
+  def /(that: Series[T]): Series[Double] = {
+    checkDim(gData, that.toVector)
+    val res = (0 until gData.size).map(i => {
+      val aops = num.mkNumericOps(gData(i)).toDouble()
+      val bops = num.mkNumericOps(gData(i)).toDouble()
+      aops / bops
+    })
+    new Series[Double](res)
+  }
+
   def toVector = gData
 
 

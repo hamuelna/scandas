@@ -36,15 +36,6 @@ class SeriesTest extends FlatSpec with Matchers {
     (ts3 + ts4).toVector should be(Vector(4, 4, 8, 10))
     (ts3 + ts5).toVector should be(Vector(6.0, 4.0, 6.0, Double.NaN))
 
-<<<<<<< HEAD
-=======
-    ts1.toVector should be (d)
-    ts2.toVector should be (d2)
-    (ts1 + ts2).toVector should be (Vector(3.0, 8.0, 12.0, 11, 19))
-    (ts1 * ts2).toVector should be (Vector(2.0, 15.0, 35.0, 28.0, 90.0))
-    ts3.abs.toVector should be (Vector(1.0, 2.0, 3.0, 4.0 ))
-    (ts1 + ts3).toVector shouldBe a [Vector[_]]
->>>>>>> master
   }
 
   it should "minus each other" in {

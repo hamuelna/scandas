@@ -68,10 +68,18 @@ class DoubleTest extends FlatSpec with Matchers {
     val d6 = -0.5
     val d7 = 3.0
 
-
     val ts1 = new DoubleSeries(d)
     val ts2 = new DoubleSeries(d2)
     val ts3 = new DoubleSeries(d3)
+    val ts4 = new DoubleSeries(d4)
+
+    ts1/ts4 should be (Seq(-0.100000, 0.833333, 2.333333, 0.320000, -3.125000))
+    ts1/ts2 should be (Seq(Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN))
+    ts1/ts3 should be (Seq(-1.0, 2.5, -1.4, Double.NaN, Double.NaN))
+    ts3/d7 should be (Seq(-0.333333, 0.666667, -1.666667))
+    d5/d6 should be (-2.0)
+    ts2/d5 should be (Seq())
+
 
   }
 

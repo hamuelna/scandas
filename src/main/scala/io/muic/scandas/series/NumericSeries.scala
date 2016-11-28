@@ -16,6 +16,19 @@ trait NumericSeries extends Series {
   def /(that: DoubleSeries): DoubleSeries
   def /(that: Double): DoubleSeries
 
+  def > (that: DoubleSeries): BoolSeries
+  def > (that: Double): BoolSeries
+
+  def >= (that: DoubleSeries): BoolSeries
+  def >= (that: Double): BoolSeries
+
+  def < (that: DoubleSeries): BoolSeries
+  def < (that: Double): BoolSeries
+
+  def <= (that: DoubleSeries): BoolSeries
+  def <= (that: Double): BoolSeries
+
+  def nonzero()
   def max()
   def mean(): Double
   def median()

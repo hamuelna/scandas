@@ -4,8 +4,6 @@ import Util._
 class StringSeries(seq: Seq[String]) extends Series {
   def obj(): Vector[String] = seq.toVector
 
-  def index(): Map[_, Int] = ???
-
   def >(that: StringSeries): BoolSeries =
     new BoolSeries(compSt(obj(), that.obj(), _>_))
   def >(that: String): BoolSeries =

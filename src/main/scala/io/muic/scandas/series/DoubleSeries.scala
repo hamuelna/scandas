@@ -3,9 +3,13 @@ import Util._
 class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
 
 
+  def sort_value(): DoubleSeries = new DoubleSeries(obj().sorted)
+
+  def boolIdx(that: BoolSeries): DoubleSeries =
+    new DoubleSeries(obj().zip(that.obj()).filter(x => x._2).map(x => x._1))
+
   def abs(): NumericSeries = new DoubleSeries(obj().map(x => x.abs))
 
-  def median(): Double = obj().sorted.toVector(size()/2 + 1)
 
   def mean(): Double = sum()/size()
 
@@ -27,6 +31,10 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
   def min(): Double = obj().toParArray.min
 
   def sum(): Double = obj().toParArray.sum
+
+  def argMax(): Int = obj().indexOf(max())
+
+  def argMin(): Int = obj().indexOf(min())
 
   def -(that: DoubleSeries): DoubleSeries =
     new DoubleSeries(opsNum(obj(), that.obj(), _-_))

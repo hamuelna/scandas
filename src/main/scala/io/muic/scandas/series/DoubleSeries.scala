@@ -13,6 +13,11 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
 
   def mean(): Double = sum()/size()
 
+  def median(): Double = {
+    val (lower, upper) = seq.sortWith(_<_).splitAt(seq.size / 2)
+    if (seq.size % 2 == 0) (lower.last + upper.head) / 2.0 else upper.head
+  }
+
   def /(that: DoubleSeries): DoubleSeries =
     new DoubleSeries(opsNum(obj(), that.obj(), _/_))
 
@@ -26,6 +31,7 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
   def +(that: Double): DoubleSeries =
     new DoubleSeries(opsNumOne(obj(), that, _+_))
 
+  /// dont have case of having two mode -> Seq(4.0, 4.0, 5.0 ,5.0)
   def mode(): Double = obj().toParArray.groupBy(x => x).maxBy(x => x._2.size)._1
 
   def min(): Double = obj().toParArray.min

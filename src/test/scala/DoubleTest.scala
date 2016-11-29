@@ -12,8 +12,8 @@ class DoubleTest extends FlatSpec with Matchers {
     val ts2 = new DoubleSeries(Seq(2.0, 3.0, 5.0, 7.0, 9.0))
     val ts3 = new DoubleSeries(Seq())
 
-    ts1.toVector should be (Seq(1.0, 5.0, 7.0, 4.0, 10.0))
-    ts2.toVector should be (Seq(2.0, 3.0, 5.0, 7.0, 9.0))
+    ts1.toVector should be (Vector(1.0, 5.0, 7.0, 4.0, 10.0))
+    ts2.toVector should be (Vector(2.0, 3.0, 5.0, 7.0, 9.0))
     ts3.toVector should be (Vector())
   }
 
@@ -56,15 +56,11 @@ class DoubleTest extends FlatSpec with Matchers {
 
   // max
   it should "give maximum value of series" in {
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-1.0,2.0,-5.0)
-    val d4 = Seq(-10.0, 6.0, 3.0, 12.5, -3.2)
 
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
-    val ts4 = new DoubleSeries(d4)
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
+    val ts4 = new DoubleSeries(Seq(-10.0, 6.0, 3.0, 12.5, -3.2))
 
     ts1.max() should be (10.0)
     ts2.max() should be (Seq())
@@ -74,15 +70,11 @@ class DoubleTest extends FlatSpec with Matchers {
 
   // min
   it should "give minimum value of series" in {
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-1.0,2.0,-5.0)
-    val d4 = Seq(-10.0, 6.0, 3.0, 12.5, -3.2)
 
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
-    val ts4 = new DoubleSeries(d4)
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
+    val ts4 = new DoubleSeries(Seq(-10.0, 6.0, 3.0, 12.5, -3.2))
 
     ts1.min() should be (1.0)
     ts2.min() should be (Seq())
@@ -92,13 +84,10 @@ class DoubleTest extends FlatSpec with Matchers {
 
   //mode
   it should "give mode value of series" in {
-    val d1 = Seq(1.0, 5.0, 5.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-1.0,2.0,-5.0)
 
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
 
     ts1.mode() should be (5.0)
     ts2.mode() should be (Seq())
@@ -107,34 +96,38 @@ class DoubleTest extends FlatSpec with Matchers {
 
   // sum
   it should "give sim of double in the series" in {
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-1.0,2.0,-5.0)
 
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
 
     ts1.sum() should be (27.0)
     ts2.sum() should be (Seq())
     ts3.sum() should be (-4.0)
   }
 
+  // nonzero
+  it should "return only double that are not zero" in {
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
+    val ts4 = new DoubleSeries(Seq(0.0, 1.5, 0.5, 0.0, 0.6, 1.78))
+
+    ts1.nonzero().toVector should be (Vector(1.0, 5.0, 7.0, 4.0, 10.0))
+    ts2.nonzero().toVector should be (Vector())
+    ts4.nonzero().toVector should be (Vector(1.5, 0.5, 0.6, 1.78))
+  }
+
   // plus
   it should "plus two series/double correctly" in {
 
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-1.0,2.0,-5.0)
-    val d4 = Seq(-10.0, 6.0, 3.0, 12.5, -3.2)
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
+    val ts4 = new DoubleSeries(Seq(-10.0, 6.0, 3.0, 12.5, -3.2))
     val d5 = 1.0
     val d6 = -0.5
     val d7 = 3.0
-
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
-    val ts4 = new DoubleSeries(d4)
 
     (ts1 + ts2).toVector should be (Vector(1.0, 5.0, 7.0, 4.0, 10.0))
     (ts1 + ts3).toVector should be (Vector(-11.0, 8.0, -2.0, Double.NaN, Double.NaN))
@@ -147,18 +140,14 @@ class DoubleTest extends FlatSpec with Matchers {
 
   // minus
   it should "minus doubles between series correctly" in {
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-1.0,2.0,-5.0)
-    val d4 = Seq(-10.0, 6.0, 3.0, 12.5, -3.2)
+
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
+    val ts4 = new DoubleSeries(Seq(-10.0, 6.0, 3.0, 12.5, -3.2))
     val d5 = 1.0
     val d6 = -0.5
     val d7 = 3.0
-
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
-    val ts4 = new DoubleSeries(d4)
 
     ts1 - ts2 should be (Seq(Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN))
     ts1 - ts3 should be (Seq(11.0, -1.0, 4.0, -8.5, 13.2))
@@ -170,18 +159,14 @@ class DoubleTest extends FlatSpec with Matchers {
 
   // multiply
   it should "multiply double in the series correctly" in {
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-1.0,2.0,-5.0)
-    val d4 = Seq(-10.0, 6.0, 3.0, 12.5, -3.2)
+
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
+    val ts4 = new DoubleSeries(Seq(-10.0, 6.0, 3.0, 12.5, -3.2))
     val d5 = 1.0
     val d6 = -0.5
     val d7 = 3.0
-
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
-    val ts4 = new DoubleSeries(d4)
 
     ts1 * ts3 should be (Seq(-1.0, 10.0 -35.0, Double.NaN, Double.NaN))
     ts1 * ts2 should be (Seq(Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN))
@@ -193,18 +178,14 @@ class DoubleTest extends FlatSpec with Matchers {
 
   // division
   it should "divide two series/double correctly" in {
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-1.0,2.0,-5.0)
-    val d4 = Seq(-10.0, 6.0, 3.0, 12.5, -3.2)
+
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
+    val ts4 = new DoubleSeries(Seq(-10.0, 6.0, 3.0, 12.5, -3.2))
     val d5 = 1.0
     val d6 = -0.5
     val d7 = 3.0
-
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
-    val ts4 = new DoubleSeries(d4)
 
     ts1/ts4 should be (Seq(-0.100000, 0.833333, 2.333333, 0.320000, -3.125000))
     ts1/ts2 should be (Seq(Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN))
@@ -217,17 +198,15 @@ class DoubleTest extends FlatSpec with Matchers {
   // less than
   // can only be the series that have the same size
   it should "return true/false for each double when series A < series B" in {
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d4 = Seq(-10.0, 6.0, 3.0, 12.5, -3.2)
+
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq(-10.0, 6.0, 3.0, 12.5, -3.2))
     val d5 = 1.0
     val d6 = -0.5
     val d7 = 3.0
 
-    val ts1 = new DoubleSeries(d1)
-    val ts4 = new DoubleSeries(d4)
-
-    ts1 < ts4 should be (Seq(false, true, false, true, false))
-    ts4 < d7 should be (Seq(true, false, false, false, true))
+    ts1 < ts2 should be (Seq(false, true, false, true, false))
+    ts2 < d7 should be (Seq(true, false, false, false, true))
     d5 < d7 should be (true)
     d5 < d6 should be (false)
     d5 < d5 should be (false)
@@ -235,23 +214,51 @@ class DoubleTest extends FlatSpec with Matchers {
 
   // more than
   it should "return true/false for each double when series A > series B" in {
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d4 = Seq(-10.0, 6.0, 3.0, 12.5, -3.2)
+
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq(-10.0, 6.0, 3.0, 12.5, -3.2))
     val d5 = 1.0
     val d6 = -0.5
     val d7 = 3.0
 
-    val ts1 = new DoubleSeries(d1)
-    val ts4 = new DoubleSeries(d4)
-
-    ts1 > ts4 should be (Seq(true, false, true, false, true))
+    ts1 > ts2 should be (Seq(true, false, true, false, true))
     ts1 > d7 should be (Seq(false, true, true, true, true))
     d5 > d7 should be (false)
     d5 > d6 should be (true)
     d5 > d5 should be (false)
   }
 
+  // more than or equal
+  it should "return true/false for each double when series A >= series B" in {
 
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq(-10.0, 6.0, 3.0, 12.5, -3.2))
+    val d5 = 1.0
+    val d6 = -0.5
+    val d7 = 3.0
+
+    ts1 >= ts2 should be (Seq(true, false, true, false, true))
+    ts1 >= d7 should be (Seq(false, true, true, true, true))
+    d5 >= d7 should be (false)
+    d5 >= d6 should be (true)
+    d5 >= d5 should be (true)
+  }
+
+  // less than or equal
+  it should "return true/false for each double when series A >= series B" in {
+
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq(-10.0, 6.0, 3.0, 12.5, -3.2))
+    val d5 = 1.0
+    val d6 = -0.5
+    val d7 = 3.0
+
+    ts1 <= ts2 should be (Seq(false, true, false, true, false))
+    ts1 <= d7 should be (Seq(true, false, false, false, false))
+    d5 <= d7 should be (true)
+    d5 <= d6 should be (false)
+    d5 <= d5 should be (true)
+  }
 
 
 }

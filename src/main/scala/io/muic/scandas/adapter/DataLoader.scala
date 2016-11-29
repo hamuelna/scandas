@@ -1,10 +1,9 @@
 package io.muic.scandas.adapter
 
 class DataLoader {
-  // URL = path/url
-  //say something
-  def readCSV(URL: String): Map[Int,Vector[T]] = ??? //read apache -> turn string to be map of vector
 
-  def readJSON(URL: String): Map[Int,Vector[T]] = ??? // turn string to be map of vector
+  def readCSV(filename: String): Unit = ???
+
+  def readJSON(filename: String): Unit = ???
 
 }

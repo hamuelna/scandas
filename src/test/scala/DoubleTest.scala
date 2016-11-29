@@ -143,8 +143,4 @@ class DoubleTest extends FlatSpec with Matchers {
     (5 <= 5) should be (true)
   }
 
-
-
-
-
 }

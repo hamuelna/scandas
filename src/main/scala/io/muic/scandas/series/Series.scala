@@ -15,8 +15,9 @@ trait Series {
 
   def head() = obj().head
   def tail() = obj().tail
-  def sort_value() = obj().sorted
+  def sort_value(): Series
   def unique = obj().distinct
+  def boolIdx(that: BoolSeries): Series
 
   def size() = obj().size
   def toArray = obj().toArray

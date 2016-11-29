@@ -28,13 +28,14 @@ trait NumericSeries extends Series {
   def <= (that: DoubleSeries): BoolSeries
   def <= (that: Double): BoolSeries
 
-  def nonzero()
-  def max()
+  def nonzero(): NumericSeries
+  def max(): AnyVal
+  def argMax(): Int
   def mean(): Double
-  def median()
-  def min()
-  def mode()
-  def sum()
+  def min(): AnyVal
+  def argMin(): Int
+  def mode(): AnyVal
+  def sum(): AnyVal
 
 
 }

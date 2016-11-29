@@ -20,6 +20,7 @@ trait Series {
   def boolIdx(that: BoolSeries): Series
 
   def size() = obj().size
+  def iloc(i: Int) = obj()(i)
   def toArray = obj().toArray
   def toVector = obj()
   def toList = obj().toList

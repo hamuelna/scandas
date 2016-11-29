@@ -7,44 +7,34 @@ import org.scalatest.{FlatSpec, Matchers}
 class DoubleTest extends FlatSpec with Matchers {
 
   "A series" should "do a lot of stuff such as element wise stuff" in {
-    val d = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq(2.0, 3.0, 5.0, 7.0, 9.0)
-    val d3 = Seq()
 
-    val ts1 = new DoubleSeries(d)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq(2.0, 3.0, 5.0, 7.0, 9.0))
+    val ts3 = new DoubleSeries(Seq())
 
-    ts1.toVector should be(d)
-    ts2.toVector should be(d2)
-    ts3.toVector should be(Seq())
+    ts1.toVector should be (Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    ts2.toVector should be (Seq(2.0, 3.0, 5.0, 7.0, 9.0))
+    ts3.toVector should be (Vector())
   }
 
   // abs
   it should "make series absolute" in {
 
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-1.0,2.0,-5.0)
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
 
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
-
-    ts1.abs() should be (Seq(1.0, 5.0, 7.0, 4.0, 10.0))
-    ts2.abs() should be (Seq())
-    ts3.abs() should be (Seq(1.0, 2.0, 5.0))
+    ts1.abs().toVector should be (Vector(1.0, 5.0, 7.0, 4.0, 10.0))
+    ts2.abs().toVector should be (Vector())
+    ts3.abs().toVector should be (Vector(1.0, 2.0, 5.0))
   }
 
   // median
   it should "give a median of the series" in {
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-1.0,2.0,-5.0)
 
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
 
     ts1.median() should be (5.0)
     ts2.median() should be (Seq())
@@ -53,13 +43,10 @@ class DoubleTest extends FlatSpec with Matchers {
 
   // mean
   it should "give a mean number of the series" in {
-    val d1 = Seq(1.0, 5.0, 7.0, 4.0, 10.0)
-    val d2 = Seq()
-    val d3 = Seq(-10.0, 6.0, 3.0, 12.5, -3.2)
 
-    val ts1 = new DoubleSeries(d1)
-    val ts2 = new DoubleSeries(d2)
-    val ts3 = new DoubleSeries(d3)
+    val ts1 = new DoubleSeries(Seq(1.0, 5.0, 7.0, 4.0, 10.0))
+    val ts2 = new DoubleSeries(Seq())
+    val ts3 = new DoubleSeries(Seq(-1.0,2.0,-5.0))
 
     ts1.mean() should be (5.4)
     ts2.mean() should be (Seq())
@@ -149,13 +136,13 @@ class DoubleTest extends FlatSpec with Matchers {
     val ts3 = new DoubleSeries(d3)
     val ts4 = new DoubleSeries(d4)
 
-    ts1+ts2 should be (Seq(1.0, 5.0, 7.0, 4.0, 10.0))
-    ts1+ts3 should be (Seq(-11.0, 8.0, -2.0, Double.NaN, Double.NaN))
-    ts3+ts4 should be (Seq(-9.0, 11.0, 10.0, 16.5, 6.8))
-    ts4+d7 should be (Seq(-7.0, 9.0, 6.0, 15.5, -0.2))
-    ts2+d7 should be (Seq())
-    d5+d6 should be (0.5)
-    d5+d7 should be (4.0)
+    (ts1 + ts2).toVector should be (Vector(1.0, 5.0, 7.0, 4.0, 10.0))
+    (ts1 + ts3).toVector should be (Vector(-11.0, 8.0, -2.0, Double.NaN, Double.NaN))
+    (ts3 + ts4).toVector should be (Vector(-9.0, 11.0, 10.0, 16.5, 6.8))
+    (ts4 + d7).toVector should be (Vector(-7.0, 9.0, 6.0, 15.5, -0.2))
+    (ts2 + d7) should be (Seq())
+    d5 + d6 should be (0.5)
+    d5 + d7 should be (4.0)
   }
 
   // minus

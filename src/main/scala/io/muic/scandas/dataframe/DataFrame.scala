@@ -1,6 +1,7 @@
 package io.muic.scandas.dataframe
 
-import io.muic.scandas.series.{BoolSeries, DoubleSeries, Series, StringSeries}
+import io.muic.scandas.series._
+import scala.reflect.runtime.universe.{typeOf, TypeTag}
 
 import scala.collection.immutable.HashMap
 
@@ -8,8 +9,8 @@ object DataFrame{
   var col: Seq[String] = Nil
   var data: Seq[Series] = Nil
 
-  def fromSeq(d: Seq[Seq[Any]], c: Seq[String]= Nil ) = {
-    this.data = d.map(x => Util.chkType(x))
+  def fromSeq[T: TypeTag](d: Seq[Seq[T]], c: Seq[String]= Nil ) = {
+    this.data = Util.castType(d)
     if (c.nonEmpty) col = c
     DataFrame
   }

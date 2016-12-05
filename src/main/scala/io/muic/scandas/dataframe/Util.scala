@@ -2,22 +2,22 @@ package io.muic.scandas.dataframe
 
 import io.muic.scandas.series.{BoolSeries, DoubleSeries, StringSeries}
 
-import scala.reflect.{ClassTag, classTag}
+import scala.reflect.runtime.universe.{TypeTag, typeOf}
 
 
 object Util {
-  def chkType[A : ClassTag](x: Seq[A]) = x match {
-      case a: Seq[String @unchecked] if classTag[A] == classTag[String] => new StringSeries(a)
-      case a: Seq[Double @unchecked] if classTag[A] == classTag[Double] => new DoubleSeries(a)
-      case a: Seq[Boolean @unchecked] if classTag[A] == classTag[Boolean] => new BoolSeries(a)
-      case _ => throw new NotImplementedError("Not support this type yet")
-    }
+  def findT[A: TypeTag](f: Int => A): String = ""+typeOf[A]
 
-  def chkType2[A : ClassTag](x: Seq[A]) = x match {
-    case a: Seq[String @unchecked] if classTag[A] == classTag[String] => println("String")
-    case a: Seq[Double @unchecked] if classTag[A] == classTag[Double] => println("Double")
-    case a: Seq[Boolean @unchecked] if classTag[A] == classTag[Boolean] => println("Boolean")
-    case _ => throw new NotImplementedError("Not support this type yet")
-  }
-
+  def castType(seq: Seq[Seq[Any]]) = seq.map(x => {
+    if (x.head.isInstanceOf[Double]) {
+      val temp = x.asInstanceOf[Seq[Double]]
+      new DoubleSeries(temp)
+    }else if (x.head.isInstanceOf[Boolean]) {
+      val temp = x.asInstanceOf[Seq[Boolean]]
+      new BoolSeries(temp)
+    }else if (x.head.isInstanceOf[String]){
+      val temp = x.asInstanceOf[Seq[String]]
+      new StringSeries(temp)
+    }else throw new NotImplementedError()
+  })
 }

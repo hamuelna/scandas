@@ -30,7 +30,7 @@ object DataFrame{
   }
 
   def fromSeriesMap[T <: Series](d: Map[String, T])= {
-    obj ++ d
+    obj = d
     DataFrame
   }
 
@@ -41,5 +41,13 @@ object DataFrame{
   def getRow(i: Int) = obj.map(x => x._2.iloc(i))
   def head = obj.map(x => x._2.head())
   def last = obj.map(x => x._2.iloc(x._2.size() - 1))
+
+  //fun stuff start here
+
+  def boolIdx(seq: BoolSeries) ={
+    val ix = seq.obj().indices.filter(i => seq.obj()(i))
+    obj.mapValues(x => x.arloc(ix))
+    DataFrame
+  }
 
 }

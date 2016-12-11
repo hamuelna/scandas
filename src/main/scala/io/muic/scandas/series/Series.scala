@@ -21,6 +21,7 @@ trait Series {
 
   def size() = obj().size
   def iloc(i: Int) = obj()(i)
+  def arloc(ii: Seq[Int]) = ii.map(i => obj()(i))
   def toArray = obj().toArray
   def toVector = obj()
   def toList = obj().toList

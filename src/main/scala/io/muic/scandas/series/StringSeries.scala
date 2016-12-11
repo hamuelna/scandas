@@ -4,6 +4,10 @@ import Util._
 class StringSeries(seq: Seq[String]) extends Series {
   def sort_value(): StringSeries = new StringSeries(obj().sorted)
 
+  def max: String = obj().sorted.last
+
+  def min: String = obj().sorted.head
+
   def obj(): Vector[String] = seq.toVector
 
 //  def ==(that: String): BoolSeries = new BoolSeries(compStOne(obj(), that, _==_))

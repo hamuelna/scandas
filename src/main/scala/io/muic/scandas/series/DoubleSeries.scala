@@ -78,4 +78,9 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
   def obj(): Vector[Double] = seq.toVector
 
   def arloc(ii: Seq[Int]): DoubleSeries = new DoubleSeries(ii.map(i => obj()(i)))
+
+  def std: Double = {
+    val mu = mean()
+    obj().map(x => math.pow(x-mu,2)).sum
+  }
 }

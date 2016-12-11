@@ -36,6 +36,7 @@ trait NumericSeries extends Series {
   def argMin(): Int
   def mode(): AnyVal
   def sum(): AnyVal
+  def std(): Double
 
 
 }

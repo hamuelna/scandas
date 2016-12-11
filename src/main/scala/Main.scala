@@ -1,5 +1,9 @@
-import io.muic.scandas.series.{DoubleSeries, Series}
+import io.muic.scandas.dataframe.Df
+import io.muic.scandas.series.{DoubleSeries, NumericSeries, Series}
 
 object Main extends App{
-  val test1 = Seq(1.0,2.0,3.0)
+  val test1 = Df("src/resources/data.csv")
+  val temp = Seq(test1.getNumCol("lat"), test1.getNumCol("lon"), test1.getNumCol("period"))
+  println(temp.filter(x => x.isInstanceOf[NumericSeries]))
+  println(test1.getNumCol("lat").mean())
 }

@@ -29,7 +29,7 @@ class DoubleSeriesTest extends FlatSpec with Matchers{
   }
   "DoubleSeries" should "sum the series together" in {
     d0.sum() should be (11.361)
-    d1.sum() should be (11.234)
+    d1.sum() should be (11.234 +- 0.05)
   }
   "DoubleSeries" should "find the mode in the series" in {
     val spd0 = new DoubleSeries(Vector(1.1, 1.2, 1.1, 1.3, 1.4, 2.1, 5.5))
@@ -37,7 +37,7 @@ class DoubleSeriesTest extends FlatSpec with Matchers{
   }
   "DoubleSeries" should "find the mean in the series" in {
     d0.mean() should be (0.56805)
-    d1.mean() should be (0.5617)
+    d1.mean() should be (0.5617 +- 0.05)
   }
   "DoubleSeries" should "find the min value in the series" in {
     d0.min() should be (0.014)

@@ -4,7 +4,7 @@ import io.muic.scandas.core.ScException.DiffDimException
 
 
 trait Series {
-  def obj(): Vector[_]
+  def obj(): Vector[Any]
   def index(in: Option[Seq[String]] = None): Option[Vector[String]] =
     if (in.isEmpty) None else {
       if (in.size == size()) Some(in.get.toVector)
@@ -20,9 +20,11 @@ trait Series {
   def boolIdx(that: BoolSeries): Series
 
   def size() = obj().size
+  def iloc(i: Int) = obj()(i)
   def toArray = obj().toArray
   def toVector = obj()
   def toList = obj().toList
+
 
 
 }

@@ -8,7 +8,7 @@ import scala.reflect.runtime.universe.{TypeTag, typeOf}
 object Util {
   def findT[A: TypeTag](f: Int => A): String = ""+typeOf[A]
 
-  def castType(seq: Seq[Seq[Any]]) = seq.map(x => {
+  def castSingle(x: Seq[Any]) = {
     if (x.head.isInstanceOf[Double]) {
       val temp = x.asInstanceOf[Seq[Double]]
       new DoubleSeries(temp)
@@ -19,5 +19,7 @@ object Util {
       val temp = x.asInstanceOf[Seq[String]]
       new StringSeries(temp)
     }else throw new NotImplementedError()
-  })
+  }
+
+  def castAll(seq: Seq[Seq[Any]]) = seq.map(x => castSingle(x))
 }

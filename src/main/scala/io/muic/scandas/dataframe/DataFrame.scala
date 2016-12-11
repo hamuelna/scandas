@@ -1,51 +1,45 @@
 package io.muic.scandas.dataframe
 
 import io.muic.scandas.series._
-import scala.reflect.runtime.universe.{typeOf, TypeTag}
 
-import scala.collection.immutable.HashMap
 
 object DataFrame{
-  var col: Seq[String] = Nil
-  var data: Seq[Series] = Nil
+  var obj: Map[String, Series] = Map[String, Series]()
 
-  def fromSeq[T: TypeTag](d: Seq[Seq[T]], c: Seq[String]= Nil ) = {
-    this.data = Util.castType(d)
-    if (c.nonEmpty) col = c
+  def fromSeq[T](d: Seq[Seq[T]], c: Seq[String]= Nil ) = {
+    if (c.isEmpty){
+      obj = d.indices.map(i => i.toString -> Util.castSingle(c(i))).toMap
+    }else{
+      obj = d.zip(c).map(x => x._2 -> Util.castSingle(x._1)).toMap
+    }
     DataFrame
   }
 
-  def fromSeries(d : Seq[Series], c: Seq[String] = Nil) = {
-    data = d
-    col = c
+  def fromSeries[T <: Series](d : Seq[T], c: Seq[String] = Nil) = {
+    if (c.isEmpty){
+        obj = d.indices.map(i => i.toString -> d(i)).toMap
+    }else {
+        obj = d.zip(c).map(x => x._2 -> x._1).toMap
+    }
     DataFrame
   }
 
   def fromSeqMap(d : Map[String, Seq[Any]])= {
-    val temp = d.map(x => (x._1, x._2 match {
-      case a: Seq[Double] => new DoubleSeries(a)
-      case a: Seq[String] => new StringSeries(a)
-      case a: Seq[Boolean] => new BoolSeries(a)
-      case _ => throw new NotImplementedError()
-    })).toSeq
-    col = temp.map(x => x._1)
-    data = temp.map(x => x._2)
+    obj = d.map(x => x._1 -> Util.castSingle(x._2))
     DataFrame
   }
 
-  def fromSeriesMap(d: Map[String, Series]): Unit = {
-    val temp = d.map(x => (x._1, x._2)).toSeq
-    col = temp.map(x => x._1)
-    data = temp.map(x => x._2)
+  def fromSeriesMap[T <: Series](d: Map[String, T])= {
+    obj ++ d
     DataFrame
   }
 
-  def toMap(): Map[String, Series] = {
-    val temp = new HashMap[String, Series]
-    temp++col.zip(data)
-    temp
-  }
-  def getCol(x: String) = data(col.indexOf(x))
-  def getRow(i: Int) = data.map(x => x.iloc(i))
+  def toMap: Map[String, Series] = obj
+
+  def getCol(x: String): Series = obj(x)
+  def getNumCol(x: String): NumericSeries = obj(x).asInstanceOf[NumericSeries]
+  def getRow(i: Int) = obj.map(x => x._2.iloc(i))
+  def head = obj.map(x => x._2.head())
+  def last = obj.map(x => x._2.iloc(x._2.size() - 1))
 
 }

@@ -81,6 +81,6 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
 
   def std: Double = {
     val mu = mean()
-    obj().map(x => math.pow(x-mu,2)).sum
+    math.sqrt(obj().map(x => math.pow(x-mu,2)).sum/size())
   }
 }

@@ -42,4 +42,12 @@ class DFTest2 extends FlatSpec with Matchers{
     dfspMean("shot_distance") should be (13.43 +- 0.1)
   }
 
+  "A DataFrame" should "find the standard deviation of all Numeric Columns" in {
+    val df = Df("src/resources/data.csv")
+    val dfspStd = df.std
+    dfspStd("minutes_remaining") should be (3.44 +- 0.1)
+    dfspStd("seconds_remaining") should be (17.47 +- 0.1)
+    dfspStd("shot_distance") should be (9.37 +- 0.1)
+  }
+
 }

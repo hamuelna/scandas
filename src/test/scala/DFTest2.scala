@@ -14,10 +14,13 @@ class DFTest2 extends FlatSpec with Matchers{
     df0.boolIdx(df0.getNumCol("Numbers") < 1.4).getCol("Name").toVector should contain allOf ("Ham", "Karn", "May")
   }
 
-  "A DataFrame" should "parse csv file" in {
+  "A DataFrame" should "parse csv file and do a lot of stuff" in {
     val dfsp = DataFrame.fromCSV("src/resources/data.csv")
     dfsp.datalen should be (30697)
     dfsp.boolIdx(dfsp.getCol("action_type") == "Jump Shot").datalen should be (18880)
+    dfsp.getNumCol("minutes_remaining").mean() should be (4.9 +- 0.2)
+
+
   }
 
 }

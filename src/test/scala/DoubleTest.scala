@@ -16,8 +16,8 @@ class DoubleTest extends FlatSpec with Matchers {
   it should "plus two series/double correctly" in {
     (ts1 + ts2).toVector should be (Vector(0.465, 0.898, 1.24, 1.7429999999999999, 1.6560000000000001))
     (ts1 + 5).toVector should be (Vector(5.192, 5.622, 5.438, 5.785, 5.78))
-//    (ts1 + ts3).toVector should be (Vector(0.55, 1.123, 1.121, 1.498, Double.NaN))
-//    (ts3 + ts4).toVector should be (Vector(Double.NaN, Double.NaN, Double.NaN, Double.NaN))
+    (ts1 + ts3).toVector should be (Vector(0.55, 1.123, 1.121, 1.498, Double.NaN))
+    (ts3 + ts4).toVector should be (Vector(Double.NaN, Double.NaN, Double.NaN, Double.NaN))
     (5.0 + 6.0) should be (11.0)
 
   }

@@ -12,6 +12,7 @@ trait Series {
     }
 
   def ==(that: Series): BoolSeries = new BoolSeries(obj().zip(that.obj()).map(x => x._1 == x._2))
+  def ==(that: String): BoolSeries = new BoolSeries(obj().map(x => x == that))
 
   def head() = obj().head
   def tail() = obj().tail
@@ -21,7 +22,7 @@ trait Series {
 
   def size() = obj().size
   def iloc(i: Int) = obj()(i)
-  def arloc(ii: Seq[Int]) = ii.map(i => obj()(i))
+  def arloc(ii: Seq[Int]): Series
   def toArray = obj().toArray
   def toVector = obj()
   def toList = obj().toList

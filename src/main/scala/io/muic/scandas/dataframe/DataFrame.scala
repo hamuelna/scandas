@@ -4,6 +4,7 @@ import io.muic.scandas.series._
 
 
 object DataFrame{
+  //Column Name -> Series
   var obj: Map[String, Series] = Map[String, Series]()
 
   def fromSeq[T](d: Seq[Seq[T]], c: Seq[String]= Nil ) = {
@@ -34,6 +35,22 @@ object DataFrame{
     DataFrame
   }
 
+  def fromCSV(src: String) = {
+    import io.muic.scandas.adapter.DataLoader
+    val dd = DataLoader.readCSV(src)
+    val coltype = dd._1
+    val df = dd._2
+
+    val processData = df.map {
+      case (k,d) if coltype(k) == "Double" => (k, new DoubleSeries(d.asInstanceOf[Vector[Double]]))
+      case (k,d) if coltype(k) == "Int" => (k,new DoubleSeries(d.map {case x: Int => x.toDouble})) //will change to seriesInt when it is finish
+      case (k,d) if coltype(k) == "String" => (k,new StringSeries(d.asInstanceOf[Vector[String]]))
+      case _ => throw new Exception("should not reach here")
+    }
+    obj = processData.toMap
+    DataFrame
+  }
+
   def toMap: Map[String, Series] = obj
 
   def getCol(x: String): Series = obj(x)
@@ -41,12 +58,14 @@ object DataFrame{
   def getRow(i: Int) = obj.map(x => x._2.iloc(i))
   def head = obj.map(x => x._2.head())
   def last = obj.map(x => x._2.iloc(x._2.size() - 1))
+  def keys = obj.keys.toSeq
+  def datalen: Int = obj.values.head.size()
 
   //fun stuff start here
 
   def boolIdx(seq: BoolSeries) ={
     val ix = seq.obj().indices.filter(i => seq.obj()(i))
-    obj.mapValues(x => x.arloc(ix))
+    obj = obj.mapValues(x => x.arloc(ix))
     DataFrame
   }
 

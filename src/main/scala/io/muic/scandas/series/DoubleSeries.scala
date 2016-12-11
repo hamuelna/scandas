@@ -76,4 +76,6 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
   def nonzero(): DoubleSeries = new DoubleSeries(obj().filter(x => x != 0))
 
   def obj(): Vector[Double] = seq.toVector
+
+  def arloc(ii: Seq[Int]): DoubleSeries = new DoubleSeries(ii.map(i => obj()(i)))
 }

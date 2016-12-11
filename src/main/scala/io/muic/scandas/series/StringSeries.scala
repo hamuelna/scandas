@@ -6,7 +6,7 @@ class StringSeries(seq: Seq[String]) extends Series {
 
   def obj(): Vector[String] = seq.toVector
 
-  def ==(that: String): BoolSeries = new BoolSeries(compStOne(obj(), that, _==_))
+//  def ==(that: String): BoolSeries = new BoolSeries(compStOne(obj(), that, _==_))
 
   def >(that: StringSeries): BoolSeries =
     new BoolSeries(compSt(obj(), that.obj(), _>_))
@@ -38,4 +38,6 @@ class StringSeries(seq: Seq[String]) extends Series {
 
   def *(that: Int): Series =
     new StringSeries(obj().map(x => x * that))
+
+  def arloc(ii: Seq[Int]): StringSeries = new StringSeries(ii.map(i => obj()(i)))
 }

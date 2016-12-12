@@ -46,6 +46,7 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
     new DoubleSeries(opsNum(obj(), that.obj(), _+_))
   def +(that: Double): DoubleSeries =
     new DoubleSeries(opsNumOne(obj(), that, _+_))
+
   def +(that: IntSeries): DoubleSeries =
     new DoubleSeries(opsNumDI(obj(), that.obj(), _+_))
   def +(that: Int): DoubleSeries =
@@ -56,9 +57,9 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
     new DoubleSeries(opsNum(obj(), that.obj(), _-_))
   def -(that: Double): DoubleSeries =
     new DoubleSeries(opsNumOne(obj(), that, _-_))
-  def -(that: IntSeries): DoubleSeries =
+  override def -(that: IntSeries): DoubleSeries =
     new DoubleSeries(opsNumDI(obj(), that.obj(), _-_))
-  def -(that: Int): DoubleSeries =
+  override def -(that: Int): DoubleSeries =
     new DoubleSeries(opsNumOneDI(obj(), that, _-_))
 
 
@@ -66,9 +67,9 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
     new DoubleSeries(opsNum(obj(), that.obj(), _*_))
   def *(that: Double): DoubleSeries =
     new DoubleSeries(opsNumOne(obj(), that, _*_))
-  def *(that: IntSeries): DoubleSeries =
+  override def *(that: IntSeries): DoubleSeries =
     new DoubleSeries(opsNumDI(obj(), that.obj(), _*_))
-  def *(that: Int): DoubleSeries =
+  override def *(that: Int): DoubleSeries =
     new DoubleSeries(opsNumOneDI(obj(), that, _*_))
 
   def >(that: DoubleSeries): BoolSeries =

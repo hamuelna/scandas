@@ -45,7 +45,7 @@ class IntSeries(seq: Seq[Int]) extends NumericSeries{
   def +(that: Int): IntSeries =
     new IntSeries(opsIntOne(obj(), that, _+_))
   // int double
-  def +(that: DoubleSeries): DoubleSeries =
+  override def +(that: DoubleSeries): DoubleSeries =
     new DoubleSeries(opsNumID(obj(), that.obj(), _+_))
   def +(that: Double): DoubleSeries =
     new DoubleSeries(opsNumOneID(obj(), that, _+_))
@@ -111,4 +111,11 @@ class IntSeries(seq: Seq[Int]) extends NumericSeries{
   def nonzero(): IntSeries = new IntSeries(obj().filter(x => x != 0))
 
   def obj(): Vector[Int] = seq.toVector
+
+  def arloc(ii: Seq[Int]): IntSeries = new IntSeries(ii.map(i => obj()(i)))
+
+  def std: Double = {
+    val mu = mean()
+    math.sqrt(obj().map(x => math.pow(x-mu,2)).sum/size())
+  }
 }

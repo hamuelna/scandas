@@ -7,23 +7,23 @@ trait NumericSeries extends Series {
 
   def +(that: DoubleSeries): DoubleSeries
   def +(that: Double): DoubleSeries
-  def +(that: IntSeries): IntSeries
-  def +(that: Int): IntSeries
+  def +(that: IntSeries): NumericSeries
+  def +(that: Int): NumericSeries
 
   def -(that: DoubleSeries): DoubleSeries
   def -(that: Double): DoubleSeries
-  def -(that: IntSeries): IntSeries
-  def -(that: Int): IntSeries
+  def -(that: IntSeries): NumericSeries
+  def -(that: Int): NumericSeries
 
   def *(that: DoubleSeries): DoubleSeries
   def *(that: Double): DoubleSeries
-  def *(that: IntSeries): IntSeries
-  def *(that: Int): IntSeries
+  def *(that: IntSeries): NumericSeries
+  def *(that: Int): NumericSeries
 
   def /(that: DoubleSeries): DoubleSeries
   def /(that: Double): DoubleSeries
-  def /(that: IntSeries): DoubleSeries
-  def /(that: Int): DoubleSeries
+  def /(that: IntSeries): NumericSeries
+  def /(that: Int): NumericSeries
 
   def > (that: DoubleSeries): BoolSeries
   def > (that: Double): BoolSeries

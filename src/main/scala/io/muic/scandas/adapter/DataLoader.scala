@@ -3,7 +3,7 @@ import scala.io.Source
 import scala.collection.mutable.Map
 import scala.collection.immutable.Vector
 import scala.util.Try
-class DataLoader {
+object DataLoader {
   /// return (Hashmap[columnname,String], Hashmap[columnname,Vector[String]] => data)
   //type => "Double" , "Int", "String"
   def readCSV(path: String): (Map[String,String],Map[String,Vector[_]]) ={

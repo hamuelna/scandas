@@ -17,4 +17,6 @@ class BoolSeries(seq: Seq[Boolean], in: Option[Seq[String]] = None) extends Seri
   def unary_!(): BoolSeries =
     new BoolSeries(obj().map(x => !x))
 
+  def arloc(ii: Seq[Int]): BoolSeries = new BoolSeries(ii.map(i => obj()(i)))
+
 }

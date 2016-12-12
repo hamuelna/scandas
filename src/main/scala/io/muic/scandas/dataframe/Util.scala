@@ -2,11 +2,9 @@ package io.muic.scandas.dataframe
 
 import io.muic.scandas.series.{BoolSeries, DoubleSeries, StringSeries}
 
-import scala.reflect.runtime.universe.{TypeTag, typeOf}
 
 
 object Util {
-  def findT[A: TypeTag](f: Int => A): String = ""+typeOf[A]
 
   def castSingle(x: Seq[Any]) = {
     if (x.head.isInstanceOf[Double]) {

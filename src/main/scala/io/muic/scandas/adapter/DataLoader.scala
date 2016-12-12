@@ -3,6 +3,9 @@ import scala.io.Source
 import scala.collection.mutable.Map
 import scala.collection.immutable.Vector
 import scala.util.Try
+import org.json4s.DefaultFormats
+import org.json4s.jackson.JsonMethods._
+
 object DataLoader {
   /// return (Hashmap[columnname,String], Hashmap[columnname,Vector[String]] => data)
   //type => "Double" , "Int", "String"
@@ -76,7 +79,99 @@ object DataLoader {
     ///////////////
   }
 
-  def readJSON(path: String): Unit = ???
+  def readJSON(path: String):(Map[String,String],Map[String,Vector[_]]) ={
+    val lines = Source.fromFile("src/main/scala/csvtest/anc.json").getLines.mkString
+    val JSON = parse(lines)
+
+    //* doing head *//
+    val header:Map[Int,String] = Map()
+    val dataframe:Map[String,Vector[_]] = Map()
+    val columntype:Map[String,String] = Map()
+    var columnsize = 0
+    val head = JSON(0).foldField(List(): List[String])((l, t) => t._1 :: l).reverse
+    head.foreach{
+      head => {
+        header(columnsize) = head
+        columntype(head)= "Nil"
+        dataframe(head) = Vector()
+        columnsize+=1
+
+      }
+    }
+
+    // get all data to store in dataframe
+    (0 to columnsize-1).foreach( index => {
+      val head = header.get(index).get
+      var Jdata = (JSON \\ head).children
+      implicit val formats = DefaultFormats
+      var vectorstring = Jdata.map(x=> x.extract[String]).toVector
+      dataframe(head) = vectorstring
+    })
+
+    (0 to columnsize-1).foreach{
+      index => {
+        val field = header.get(index).get
+        val vec = dataframe.get(field).get
+        var new_vec:Vector[_] = Vector()
+        vec.foreach{
+          data => {
+            val previoustype = columntype.get(field).get
+            val new_data = changetype(data,previoustype)
+            if(new_data._2 != previoustype){
+              // need to get previousvector and change it to the new type
+              new_vec = new_vec.map{
+                d => changetype(d,new_data._2)._1
+              }
+              // change the columntype to collect the new type
+              columntype(field) = new_data._2
+            }
+            new_vec = new_vec:+ new_data._1
+          }
+        }
+        dataframe(field) = new_vec
+      }
+    }
+
+    //////////////////////////
+    (columntype,dataframe)
+
+
+    //* testing *//
+    //* header test *//
+    //      columntype.keySet.foreach{
+    //        head => println(columntype(head),head)
+    //      }
+    ///////////////////
+
+    //* data test *//
+    //        dataframe.keySet.foreach{
+    //          head => println(head,dataframe(head)(1))
+    //        }
+    /////////////////
+    //    val test = Vector("1","2","Ab")
+    //    var p = "Nil"
+    //    var new_test:Vector[_] = Vector()
+    //    test.foreach(data => {
+    //      val previoustype = p
+    //      val new_data = changetype(data,previoustype)
+    //      if(new_data._2 != previoustype){
+    //        // need to get previousvector and change it to the new type
+    //        new_test = new_test.map{
+    //          d => changetype(d,new_data._2)._1
+    //        }
+    //        // change the columntype to collect the new type
+    //        //columntype(head) = new_data._2
+    //        p = new_data._2
+    //      }
+    //
+    //      /////////////////
+    //      new_test = new_test:+ new_data._1
+    //    })
+    //    println(new_test)
+    //    println(p)
+    ///////////////
+
+  }
 
 
   def changetype[T](S: T ,Type: String): (_,String) ={

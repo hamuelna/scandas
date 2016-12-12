@@ -50,5 +50,21 @@ class DataFrame(x: Map[String, Series]){
 
   def describe = ??? //aggregate all the statistic together
 
+  def join(that: DataFrame, l_suffix: String = "", r_suffix: String = "", how: String = "left"): DataFrame = {
+      val mapping = how match {
+        case "left" => obj.zip(that.obj).map {
+          case ((k1,v1),(k2,v2)) => Map(k1 -> v1, k2 -> v2)
+          case ((k1,v1),(k2,v2)) if k1 == k2 => Map(k1+l_suffix -> v1, k2+r_suffix -> v2)
+          case ((k1,v1),(k2,v2)) if k1 == k2 && l_suffix == r_suffix => throw new Exception("suffix is the same")
+        }
+        case "right" => obj.zip(that.obj).map {
+          case ((k1,v1),(k2,v2)) => Map(k1 -> v1, k2 -> v2)
+          case ((k1,v1),(k2,v2)) if k1 == k2 => Map(k1+l_suffix -> v1, k2+r_suffix -> v2)
+          case ((k1,v1),(k2,v2)) if k1 == k2 && l_suffix == r_suffix => throw new Exception("suffix is the same")
+        }
+      }
+    new DataFrame(mapping.flatten.toMap)
+  }
+
 
 }

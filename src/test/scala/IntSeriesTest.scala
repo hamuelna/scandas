@@ -14,40 +14,40 @@ class IntSeriesTest extends FlatSpec with Matchers {
   // plus
   it should "plus numbers together" in {
     (ts1 + ts2).toVector should be (Vector(1, 7, -5, 5, 2))
-//    (ts2 + ts3).toVector should be (Vector(4, 7, 4, Double.NaN, Double.NaN))
-//    (ts3 + ts4).toVector should be (Vector(Double.NaN, Double.NaN, Double.NaN))
+    (ts2 + ts3).toVector should be (Vector(4, 7, 4))
+    (ts3 + ts4).toVector should be (Vector())
   }
 
   it should "minus number together" in {
     (ts1 - ts2).toVector should be (Vector(1, -3, 11, 3, 8))
-//    (ts2 - ts3).toVector should be (Vector(-4, 3, -20, Double.NaN, Double.NaN))
-//    (ts3 - ts4).toVector should be (Vector(Double.NaN, Double.NaN, Double.NaN))
+    (ts2 - ts3).toVector should be (Vector(-4, 3, -20))
+    (ts3 - ts4).toVector should be (Vector())
   }
 
   it should "multiply number together" in {
     (ts1 * ts2).toVector should be (Vector(0, 10, -24, 4, -15))
-//    (ts2 * ts3).toVector should be (Vector(0, 10, -96, Double.NaN, Double.NaN))
-//    (ts3 * ts4).toVector should be (Vector(Double.NaN, Double.NaN, Double.NaN))
+    (ts2 * ts3).toVector should be (Vector(0, 10, -96))
+    (ts3 * ts4).toVector should be (Vector())
   }
 
   it should "divide number together" in {
     (ts2 / ts1).toVector should be (Vector(0, 2, -2, 0, 0))
-//    (ts2 / ts3).toVector should be (Vector(0.0, 2.5, -0.6666666666666666, Double.NaN, Double.NaN))
-//    (ts3 / ts4).toVector should be (Vector(Double.NaN, Double.NaN, Double.NaN))
+    (ts2 / ts3).toVector should be (Vector(0, 2, 0))
+    (ts3 / ts4).toVector should be (Vector())
   }
 
   // median
   it should "return median of the series" in {
     ts1.median() should be (3.0)
     ts2.median() should be (0.0)
-//    ts4.median() should be (Double.NaN)
+//    ts4.median() should be ()
   }
 
   // mean
   it should "return mean value of the series" in {
     ts1.mean() should be (3.0)
     ts2.mean() should be (-1.0)
-//    ts4.mean() should be (Double.NaN)
+//    ts4.mean() should be ()
   }
 
   // mode

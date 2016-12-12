@@ -18,23 +18,12 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
     if (seq.size % 2 == 0) (lower.last + upper.head) / 2.0 else upper.head
   }
 
-  def /(that: DoubleSeries): DoubleSeries =
-    new DoubleSeries(opsNum(obj(), that.obj(), _/_))
-
-  def /(that: Double): DoubleSeries =
-    new DoubleSeries(opsNumOne(obj(), that, _/_))
-
-  def max(): Double = obj().toParArray.max
-
-  def +(that: DoubleSeries): DoubleSeries =
-    new DoubleSeries(opsNum(obj(), that.obj(), _+_))
-  def +(that: Double): DoubleSeries =
-    new DoubleSeries(opsNumOne(obj(), that, _+_))
-
   /// dont have case of having two mode -> Seq(4.0, 4.0, 5.0 ,5.0)
   def mode(): Double = obj().toParArray.groupBy(x => x).maxBy(x => x._2.size)._1
 
   def min(): Double = obj().toParArray.min
+
+  def max(): Double = obj().toParArray.max
 
   def sum(): Double = obj().toParArray.sum
 
@@ -42,42 +31,81 @@ class DoubleSeries(seq: Seq[Double]) extends NumericSeries{
 
   def argMin(): Int = obj().indexOf(min())
 
+  def /(that: DoubleSeries): DoubleSeries =
+    new DoubleSeries(opsNum(obj(), that.obj(), _/_))
+  def /(that: Double): DoubleSeries =
+    new DoubleSeries(opsNumOne(obj(), that, _/_))
+
+  // for int
+  def /(that: IntSeries): DoubleSeries =
+    new DoubleSeries(opsNumDI(obj(), that.obj(), _/_))
+  def /(that: Int): DoubleSeries =
+    new DoubleSeries(opsNumOneDI(obj(), that, _/_))
+
+  def +(that: DoubleSeries): DoubleSeries =
+    new DoubleSeries(opsNum(obj(), that.obj(), _+_))
+  def +(that: Double): DoubleSeries =
+    new DoubleSeries(opsNumOne(obj(), that, _+_))
+  def +(that: IntSeries): DoubleSeries =
+    new DoubleSeries(opsNumDI(obj(), that.obj(), _+_))
+  def +(that: Int): DoubleSeries =
+    new DoubleSeries(opsNumOneDI(obj(), that, _+_))
+
+
   def -(that: DoubleSeries): DoubleSeries =
     new DoubleSeries(opsNum(obj(), that.obj(), _-_))
-
   def -(that: Double): DoubleSeries =
     new DoubleSeries(opsNumOne(obj(), that, _-_))
+  def -(that: IntSeries): DoubleSeries =
+    new DoubleSeries(opsNumDI(obj(), that.obj(), _-_))
+  def -(that: Int): DoubleSeries =
+    new DoubleSeries(opsNumOneDI(obj(), that, _-_))
+
 
   def *(that: DoubleSeries): DoubleSeries =
     new DoubleSeries(opsNum(obj(), that.obj(), _*_))
-
   def *(that: Double): DoubleSeries =
     new DoubleSeries(opsNumOne(obj(), that, _*_))
-
+  def *(that: IntSeries): DoubleSeries =
+    new DoubleSeries(opsNumDI(obj(), that.obj(), _*_))
+  def *(that: Int): DoubleSeries =
+    new DoubleSeries(opsNumOneDI(obj(), that, _*_))
 
   def >(that: DoubleSeries): BoolSeries =
     new BoolSeries(compNum(obj(), that.obj(), _>_))
-
   def >(that: Double): BoolSeries =
     new BoolSeries(compNumOne(obj(), that, _>_))
+  def >(that: IntSeries): BoolSeries =
+    new BoolSeries(compNumDI(obj(), that.obj(), _>_))
+  def >(that: Int): BoolSeries =
+    new BoolSeries(compNumOneDI(obj(), that, _>_))
 
   def <=(that: DoubleSeries): BoolSeries =
     new BoolSeries(compNum(obj(), that.obj(), _<=_))
-
   def <=(that: Double): BoolSeries =
     new BoolSeries(compNumOne(obj(), that, _<=_))
+  def <=(that: IntSeries): BoolSeries =
+    new BoolSeries(compNumDI(obj(), that.obj(), _<=_))
+  def <=(that: Int): BoolSeries =
+    new BoolSeries(compNumOneDI(obj(), that, _<=_))
 
   def <(that: DoubleSeries): BoolSeries =
     new BoolSeries(compNum(obj(), that.obj(), _<_))
-
   def <(that: Double): BoolSeries =
     new BoolSeries(compNumOne(obj(), that, _<_))
+  def <(that: IntSeries): BoolSeries =
+    new BoolSeries(compNumDI(obj(), that.obj(), _<_))
+  def <(that: Int): BoolSeries =
+    new BoolSeries(compNumOneDI(obj(), that, _<_))
 
   def >=(that: DoubleSeries): BoolSeries =
     new BoolSeries(compNum(obj(), that.obj(), _>=_))
-
   def >=(that: Double): BoolSeries =
     new BoolSeries(compNumOne(obj(), that, _>=_))
+  def >=(that: IntSeries): BoolSeries =
+    new BoolSeries(compNumDI(obj(), that.obj(), _>=_))
+  def >=(that: Int): BoolSeries =
+    new BoolSeries(compNumOneDI(obj(), that, _>=_))
 
   def nonzero(): DoubleSeries = new DoubleSeries(obj().filter(x => x != 0))
 

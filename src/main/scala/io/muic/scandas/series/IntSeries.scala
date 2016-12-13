@@ -11,7 +11,7 @@ class IntSeries(seq: Seq[Int]) extends NumericSeries{
 
   def abs(): NumericSeries = new IntSeries(obj().map(x => x.abs))
 
-  def mean(): Double = sum()/size()
+  def mean(): Double = sum().toDouble/size()
 
   def median(): Double = {
     val (lower, upper) = seq.sortWith(_<_).splitAt(seq.size / 2)

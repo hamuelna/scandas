@@ -50,6 +50,7 @@ object Series {
     seq match {
       case x: Seq[Double @unchecked] if tt == "Double" => new DoubleSeries(x)
       case x: Seq[Boolean @unchecked] if tt == "Boolean" => new BoolSeries(x)
+      case x: Seq[Int @unchecked] if tt == "Int" => new IntSeries(x)
       case x: Seq[String @unchecked] if tt == "String" => new StringSeries(x)
       case _ => throw new Exception("should not reach here or you use int which is not supported")
     }

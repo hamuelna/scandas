@@ -80,7 +80,7 @@ object DataLoader {
   }
 
   def readJSON(path: String):(Map[String,String],Map[String,Vector[_]]) ={
-    val lines = Source.fromFile("src/main/scala/csvtest/anc.json").getLines.mkString
+    val lines = Source.fromFile(path).getLines.mkString
     val JSON = parse(lines)
 
     //* doing head *//

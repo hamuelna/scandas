@@ -62,7 +62,7 @@ object Df {
     val coltype = dd._1
     val df = dd._2
     processData(df, coltype)
-    
+
 
   }
 
